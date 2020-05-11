@@ -1,5 +1,5 @@
 from tkinter import *
-import dht22.get_values as get
+from dht22 import get_values as get
 
 class tempApp():
     def __init__(self):

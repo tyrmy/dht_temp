@@ -7,8 +7,8 @@ DHT_SENSOR = Adafruit_DHT.DHT22
 DHT_PIN = 4
 
 def continuous_print():
-    while True:
-        try:
+    try:
+        while True:
             humidity, temperature = Adafruit_DHT.read_retry(DHT_SENSOR, DHT_PIN)
             if humidity is not None and temperature is not None:
                 #system('clear')
@@ -16,8 +16,8 @@ def continuous_print():
             else:
                 print("Failed to retrieve data from sensor...")
             sleep(2)
-        except KeyboardInterrupt:
-            print("Exiting...")
+    except KeyboardInterrupt:
+        print("Exiting...")
 
 def get_values():
     humidity, temperature = Adafruit_DHT.read_retry(DHT_SENSOR, DHT_PIN)
