@@ -26,16 +26,27 @@ def get_values():
         return None
 
 def print_to_lcd():
+    lcd = Adafruit_CharLCD(rs=26, en=19, d4=13, d5=6, d6=5, d7=21, cols=16, lines=2)
+    lcd.clear()
+    lcd.set_cursor(0,0)
+    lcd.message("DHT22 Program")
+    lcd.set_cursor(0,1)
+    lcd.message("Waiting...")
+    sleep(2)
     try:
-        lcd = Adafruit_CharLCD(rs=26, en=19, d4=13, d5=6, d6=5, d7=21, cols=16, lines=2)
-        hum, temp = get_values()
-        lcd.set_cursor(0,0)
-        lcd.message("Temp: %d C" % temp)
-        lcd.set_cursor(0,1)
-        lcd.message("Humi: %d %" % temp)
-        sleep(3)
+        while True:
+            hum, temp = get_values()
+            lcd.clear()
+            lcd.set_cursor(0,0)
+            lcd.message("Temp: {0:.2f} C".format(temp))
+            lcd.set_cursor(0,1)
+            lcd.message("Humi: {0:.2f} %".format(hum))
+            sleep(5)
     except KeyboardInterrupt:
         print('Exiting...')
+        lcd.clear()
+        lcd.set_cursor(0,0)
+        lcd.message("OFFLINE")
 
 if __name__ == "__main__":
     #continuous_print()
