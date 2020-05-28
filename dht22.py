@@ -6,6 +6,7 @@ DHT_SENSOR = Adafruit_DHT.DHT22
 DHT_PIN = 4
 
 def continuous_print():
+    """ Prints values from sensor to command line until interrupted by user"""
     try:
         while True:
             humidity, temperature = Adafruit_DHT.read_retry(DHT_SENSOR, DHT_PIN)
@@ -18,6 +19,7 @@ def continuous_print():
         print("Exiting...")
 
 def get_values():
+    """ Return values from sensor """
     humidity, temperature = Adafruit_DHT.read_retry(DHT_SENSOR, DHT_PIN)
     if humidity is not None and temperature is not None:
         return (humidity, temperature)
@@ -26,6 +28,7 @@ def get_values():
         return None
 
 def print_to_lcd():
+    """ Print values to a 2x16 LCD display if it is provided with connections described """
     lcd = Adafruit_CharLCD(rs=26, en=19, d4=13, d5=6, d6=5, d7=21, cols=16, lines=2)
     lcd.clear()
     lcd.set_cursor(0,0)
@@ -49,5 +52,5 @@ def print_to_lcd():
         lcd.message("OFFLINE")
 
 if __name__ == "__main__":
-    #continuous_print()
-    print_to_lcd()
+    continuous_print()
+    #print_to_lcd()
